@@ -4,8 +4,7 @@ import {mapToPostViewModel} from "./map-to-post-view-model";
 import {PostQueryInput} from "../../types/post-query.input";
 import {Post} from "../../types/post";
 
-export function mapToPostListModel(blog: WithId<Post>[], totalCount: number, query: PostQueryInput) :
-    PaginatedOutput{
+export async function mapToPostListModel(blog: WithId<Post>[], totalCount: number, query: PostQueryInput, userId?: string) {
     const {
         pageNumber: page,
         pageSize,
@@ -16,6 +15,6 @@ export function mapToPostListModel(blog: WithId<Post>[], totalCount: number, que
         page,
         pageSize,
         totalCount,
-        items: blog.map(mapToPostViewModel),
+        items:  await Promise.all(blog.map(item=>mapToPostViewModel(item, userId))),
     };
 }

@@ -4,6 +4,7 @@ import { LikeStatus } from "../types/likes.type";
 import TYPES from "../../core/container/types";
 import { commentsService } from "../../comments/service/comments.service";
 import { NotFoundError } from "../../core/utils/app-response-errors";
+import {NewestLike} from "../types/newest-likes.type";
 
 @injectable()
 export class LikesService {
@@ -29,6 +30,28 @@ export class LikesService {
       likesCount,
       dislikesCount,
       myStatus,
+    };
+  }
+  async getExtendedLikesInfo(
+      targetId: string,
+      userId?: string,
+  ): Promise<{
+    likesCount: number;
+    dislikesCount: number;
+    myStatus: LikeStatus;
+    newestLikes: NewestLike[];
+  }> {
+    const [likesCount, dislikesCount, myStatus, newestLikes] = await Promise.all([
+      this.likesRepo.countLikes(targetId, LikeStatus.Like),
+      this.likesRepo.countLikes(targetId, LikeStatus.Dislike),
+      userId ? this.likesRepo.getUserStatus(userId, targetId) : LikeStatus.None,
+        this.likesRepo.getNewestLikes(targetId)
+    ]);
+    return {
+      likesCount,
+      dislikesCount,
+      myStatus,
+      newestLikes
     };
   }
 

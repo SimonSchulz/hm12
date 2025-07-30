@@ -20,9 +20,13 @@ import { optionalAccessTokenMiddleware } from "../../auth/routers/guards/optiona
 export const postsRouter = Router({});
 
 postsRouter
-  .get("", getPostsHandler)
+  .get("", optionalAccessTokenMiddleware, getPostsHandler)
 
-  .get("/:id", idValidation, inputValidationResultMiddleware, getPostHandler)
+  .get("/:id",
+      optionalAccessTokenMiddleware,
+      idValidation,
+      inputValidationResultMiddleware,
+      getPostHandler)
   .get(
     "/:postId/comments",
     optionalAccessTokenMiddleware,
