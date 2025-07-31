@@ -14,7 +14,7 @@ export async function getPostHandler(
     if (!post) {
       throw new NotFoundError("Post not found");
     }
-    const result = mapToPostViewModel(post);
+    const result = await mapToPostViewModel(post);
     res.send(result);
   } catch (e: unknown) {
     next(e);
