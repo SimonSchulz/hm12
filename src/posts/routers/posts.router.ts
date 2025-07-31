@@ -16,17 +16,21 @@ import { createCommentByPostIdHandler } from "./handlers/create-comment.handler"
 import { getCommentsByPostIdHandler } from "./handlers/get-comments.handler";
 import { accessTokenGuard } from "../../auth/routers/guards/access.token.guard";
 import { optionalAccessTokenMiddleware } from "../../auth/routers/guards/optional-access.token.guard";
+import { likeStatusValidation } from "../../likes/validation/like-status.validation";
+import { putLikeStatusHandler } from "../../comments/routers/handlers/like-status.handler";
 
 export const postsRouter = Router({});
 
 postsRouter
   .get("", optionalAccessTokenMiddleware, getPostsHandler)
 
-  .get("/:id",
-      optionalAccessTokenMiddleware,
-      idValidation,
-      inputValidationResultMiddleware,
-      getPostHandler)
+  .get(
+    "/:id",
+    optionalAccessTokenMiddleware,
+    idValidation,
+    inputValidationResultMiddleware,
+    getPostHandler,
+  )
   .get(
     "/:postId/comments",
     optionalAccessTokenMiddleware,
@@ -58,6 +62,14 @@ postsRouter
     postInputDtoValidation,
     inputValidationResultMiddleware,
     updatePostHandler,
+  )
+  .put(
+    "/:postId/like-status",
+    accessTokenGuard,
+    postIdValidation,
+    likeStatusValidation,
+    inputValidationResultMiddleware,
+    putLikeStatusHandler,
   )
 
   .delete(
