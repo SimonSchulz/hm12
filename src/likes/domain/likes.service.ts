@@ -5,6 +5,8 @@ import TYPES from "../../core/container/types";
 import { commentsService } from "../../comments/service/comments.service";
 import { NotFoundError } from "../../core/utils/app-response-errors";
 import {NewestLike} from "../types/newest-likes.type";
+import { blogService } from "../../blogs/domain/blog.service";
+import { postService } from "../../posts/domain/posts.service";
 
 @injectable()
 export class LikesService {
@@ -61,8 +63,9 @@ export class LikesService {
     newStatus: LikeStatus,
   ): Promise<void> {
     const comment = await commentsService.findByIdOrFail(targetId);
-    if (!comment) {
-      throw new NotFoundError("Comment not found");
+     const post = await postService.findByIdOrFail(targetId);
+    if(!comment || !post) {
+      throw new NotFoundError('incorrect target id');
     }
     const currentStatus = await this.likesRepo.getUserStatus(userId, targetId);
     if (currentStatus === newStatus) return;
