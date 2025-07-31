@@ -14,6 +14,7 @@ import {
     postInputDtoWithoutBlogIdValidation
 } from "../../posts/validation/post.input-dto.validation";
 import {createPostByBlogIdHandler} from "./handlers/create-post-by-blogId";
+import { optionalAccessTokenMiddleware } from "../../auth/routers/guards/optional-access.token.guard";
 
 export const blogsRouter = Router({});
 const [b] = postInputDtoValidation;
@@ -25,6 +26,7 @@ blogsRouter
         getBlogHandler
     )
     .get('/:blogId/posts',
+        optionalAccessTokenMiddleware,
         blogIdValidation,
         getPostsByBlogIdHandler
     )

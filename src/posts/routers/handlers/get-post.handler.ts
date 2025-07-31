@@ -9,12 +9,13 @@ export async function getPostHandler(
   next: NextFunction,
 ) {
   try {
+    const userId = req.userInfo?.userId;
     const id = req.params.id;
     const post = await postService.findByIdOrFail(id);
     if (!post) {
       throw new NotFoundError("Post not found");
     }
-    const result = await mapToPostViewModel(post);
+    const result = await mapToPostViewModel(post, userId);
     res.send(result);
   } catch (e: unknown) {
     next(e);

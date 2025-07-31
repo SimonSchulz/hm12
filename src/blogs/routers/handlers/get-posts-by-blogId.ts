@@ -7,18 +7,19 @@ import { blogService } from "../../domain/blog.service";
 import { HttpStatus } from "../../../core/types/http-statuses";
 
 export async function getPostsByBlogIdHandler(
-    req: Request<{ blogId: string }, {}, {}, PostQueryInput>,
+    req: Request<{ blogId: string }, {}, {}, Partial<PostQueryInput>>,
     res: Response,
     next: NextFunction
 ) {
     try {
+      const userId = req.userInfo?.userId;
       const blogId = req.params.blogId;
       await blogService.findByIdOrFail(blogId);
 
       const query = setSortAndPagination(req.query);
 
       const { items, totalCount } = await postService.findPostsByBlogId(blogId, query);
-      const result = mapToPostListModel(items, totalCount, query);
+      const result = await mapToPostListModel(items, totalCount, query, userId);
 
       res.status(HttpStatus.Ok).send(result);
     } catch (e: unknown) {
