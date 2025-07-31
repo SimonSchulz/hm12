@@ -3,6 +3,7 @@ import { PostInputDto } from "../dto/post.input-dto";
 import { PostQueryInput } from "../types/post-query.input";
 import { Types } from "mongoose";
 import { Post } from "../types/post";
+import { WithId } from "mongodb";
 
 export const postsRepository = {
   async findMany(queryDto: PostQueryInput) {
@@ -42,7 +43,7 @@ export const postsRepository = {
     return { items, totalCount };
   },
 
-  async findByIdOrFail(id: string) {
+  async findByIdOrFail(id: string):Promise<WithId<Post> | null> {
     if (!Types.ObjectId.isValid(id)) return null;
     return PostModel.findById(id).lean();
   },
