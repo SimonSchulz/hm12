@@ -6,7 +6,6 @@ import { CommentEntity } from "../dto/comment.entity";
 
 export const commentsRepository = {
   async findByIdOrFail(id: string): Promise<CommentDocument | null> {
-    if (!Types.ObjectId.isValid(id)) return null;
     return CommentModel.findById(id);
   },
 

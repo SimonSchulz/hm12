@@ -44,7 +44,6 @@ export const postsRepository = {
   },
 
   async findByIdOrFail(id: string):Promise<WithId<Post> | null> {
-    if (!Types.ObjectId.isValid(id)) return null;
     return PostModel.findById(id).lean();
   },
 
