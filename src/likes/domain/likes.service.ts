@@ -64,7 +64,7 @@ export class LikesService {
   ): Promise<void> {
     const comment = await commentsService.findByIdOrFail(targetId);
      const post = await postService.findByIdOrFail(targetId);
-    if(!comment || !post) {
+    if(!comment && !post) {
       throw new NotFoundError('incorrect target id');
     }
     const currentStatus = await this.likesRepo.getUserStatus(userId, targetId);
