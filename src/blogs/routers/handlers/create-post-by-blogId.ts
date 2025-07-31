@@ -18,7 +18,7 @@ export async function createPostByBlogIdHandler(
       throw new NotFoundError("Blog with blogId not found");
     }
     let post = await postService.createByBlogId(req.body, blogId);
-    const postViewModel = mapToPostViewModel(post);
+    const postViewModel = await mapToPostViewModel(post);
     res.status(HttpStatus.Created).send(postViewModel);
   } catch (e: unknown) {
     next(e);
