@@ -5,8 +5,6 @@ import { emailExamples } from "../../utils/email-messages";
 import container from "../../../core/container/container";
 import { AuthService } from "../../domain/auth.service";
 import TYPES from "../../../core/container/types";
-import { JwtService } from "../../domain/jwt.service";
-import { SessionDevicesService } from "../../../security/devices/domain/session.devices.service";
 import { UsersRepository } from "../../../user/repositories/user.repository";
 import { NodemailerService } from "../../domain/nodemailer.service";
 

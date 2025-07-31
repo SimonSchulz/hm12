@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { AuthorizationError } from "../../../core/utils/app-response-errors";
 import container from "../../../core/container/container";
-import { UsersRepository } from "../../../user/repositories/user.repository";
 import TYPES from "../../../core/container/types";
 import { JwtService } from "../../domain/jwt.service";
 import { SessionDevicesService } from "../../../security/devices/domain/session.devices.service";

@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import { LoginSuccessViewModel } from "../../types/login-success-view-model";
 import container from "../../../core/container/container";
-import { UsersRepository } from "../../../user/repositories/user.repository";
 import TYPES from "../../../core/container/types";
 import { RefreshService } from "../../domain/refresh.token.service";
 

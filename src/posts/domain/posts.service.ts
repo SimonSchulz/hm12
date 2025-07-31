@@ -25,17 +25,11 @@ export const postService = {
   },
 
   async create(dto: PostInputDto): Promise<WithId<Post>> {
-    const blog = await blogsRepository.findByIdOrFail(dto.blogId);
-    let blogName = "";
-    if (blog) {
-      blogName = mapToBlogViewModel(blog).name;
-    }
     let newPost = new Post({
       title: dto.title,
       shortDescription: dto.shortDescription,
       content: dto.content,
       blogId: dto.blogId,
-      blogName: blogName,
     });
 
     return postsRepository.create(newPost);
@@ -54,7 +48,6 @@ export const postService = {
       shortDescription: dto.shortDescription,
       content: dto.content,
       blogId: blogId,
-      blogName: blogName,
     });
 
     return postsRepository.create(newPost);

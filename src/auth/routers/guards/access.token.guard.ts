@@ -19,7 +19,6 @@ export const accessTokenGuard = async (
 
     const [authType, token] = authHeader.split(" ");
     if (authType !== "Bearer" || !token) throw new AuthorizationError();
-    console.log(token);
     const payload = await jwtService.verifyAccessToken(token);
     if (!payload)
       throw new AuthorizationError("Access token expired or invalid");
@@ -30,10 +29,8 @@ export const accessTokenGuard = async (
       userId: user._id.toString(),
       userLogin: user.login,
     };
-    console.log(user);
     next();
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

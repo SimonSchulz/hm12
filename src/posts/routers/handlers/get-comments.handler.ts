@@ -4,7 +4,7 @@ import { setSortAndPagination } from "../../../core/helpers/set-sort-and-paginat
 import { HttpStatus } from "../../../core/types/http-statuses";
 import {
   NotFoundError,
-  ValidationError,
+
 } from "../../../core/utils/app-response-errors";
 import { commentsService } from "../../../comments/service/comments.service";
 import { mapToCommentListModel } from "../../../comments/helpers/map-to-comment-list";

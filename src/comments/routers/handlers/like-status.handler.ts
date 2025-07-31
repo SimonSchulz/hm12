@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {
   AuthorizationError,
-  NotFoundError,
+
 } from "../../../core/utils/app-response-errors";
 import { HttpStatus } from "../../../core/types/http-statuses";
 import container from "../../../core/container/container";

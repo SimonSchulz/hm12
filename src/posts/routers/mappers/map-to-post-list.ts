@@ -1,5 +1,4 @@
 import {WithId} from "mongodb";
-import {PaginatedOutput} from "../../../core/types/paginated.output";
 import {mapToPostViewModel} from "./map-to-post-view-model";
 import {PostQueryInput} from "../../types/post-query.input";
 import {Post} from "../../types/post";

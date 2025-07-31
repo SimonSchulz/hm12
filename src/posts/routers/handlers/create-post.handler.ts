@@ -13,7 +13,7 @@ export async function createPostHandler(
   try {
     const post = await postService.create(req.body);
     if (!post) { throw new ValidationError('Invalid data'); }
-    const postViewModel = mapToPostViewModel(post);
+    const postViewModel = await mapToPostViewModel(post);
     res.status(HttpStatus.Created).send(postViewModel);
   } catch (e: unknown) {
     next(e);
