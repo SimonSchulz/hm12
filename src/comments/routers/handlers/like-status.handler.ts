@@ -20,7 +20,7 @@ export async function putLikeStatusHandler(
       throw new AuthorizationError();
     }
     const likeStatus = req.body.likeStatus;
-    const id = req.params.commentId;
+    const id = req.params.postId;
     await likesService.updateLikeStatus(userId, id, likeStatus);
     res.sendStatus(HttpStatus.NoContent);
   } catch (e: unknown) {
